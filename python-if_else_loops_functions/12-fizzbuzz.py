@@ -8,7 +8,6 @@ def fizzbuzz():
         elif i % 5 == 0:
             print("Buzz", end="")
         else:
-            print("{}".format(i), end="")
-        
+            print("{}".format(i), end="") 
         # Hər bir elementdən sonra, istisnasız boşluq çap edirik
         print(" ", end="")
