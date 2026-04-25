@@ -1,0 +1,29 @@
+The ``5-text_indentation`` module
+=================================
+
+>>> text_indentation = __import__('5-text_indentation').text_indentation
+
+Normal use:
+    >>> text_indentation("Hello. How are you? Fine: Bye")
+    Hello.
+    <BLANKLINE>
+    How are you?
+    <BLANKLINE>
+    Fine:
+    <BLANKLINE>
+    Bye
+
+Type Error:
+    >>> text_indentation(123)
+    Traceback (most recent call last):
+        ...
+    TypeError: text must be a string
+
+Empty string:
+    >>> text_indentation("")
+
+Leading and trailing spaces:
+    >>> text_indentation("   Test:   space   ")
+    Test:
+    <BLANKLINE>
+    space
