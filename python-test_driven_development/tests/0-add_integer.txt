@@ -1,0 +1,34 @@
+The ``0-add_integer`` module
+============================
+
+Using ``add_integer``
+---------------------
+
+Import the function:
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+Normal addition:
+    >>> add_integer(1, 2)
+    3
+
+With one float:
+    >>> add_integer(100.3, -2)
+    98
+
+Only one argument (b defaults to 98):
+    >>> add_integer(2)
+    100
+
+Error handling (string as argument):
+    >>> try:
+    ...     add_integer(4, "School")
+    ... except Exception as e:
+    ...     print(e)
+    b must be an integer
+
+None as argument:
+    >>> try:
+    ...     add_integer(None)
+    ... except Exception as e:
+    ...     print(e)
+    a must be an integer
