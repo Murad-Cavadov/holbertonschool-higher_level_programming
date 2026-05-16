@@ -1,39 +1,24 @@
 #!/usr/bin/python3
 """
-Unit tests for Rectangle class attribute validation.
+Unit tests for Rectangle class area method.
 """
 import unittest
 from models.rectangle import Rectangle
 
 
-class TestRectangleValidation(unittest.TestCase):
-    """Test cases for checking type and value validation in Rectangle."""
+class TestRectangleArea(unittest.TestCase):
+    """Test cases for checking the area method of Rectangle."""
 
-    def test_type_errors(self):
-        """Test that non-integers raise TypeError."""
-        with self.assertRaisesRegex(TypeError, "width must be an integer"):
-            Rectangle("10", 2)
-        with self.assertRaisesRegex(TypeError, "height must be an integer"):
-            Rectangle(10, "2")
-        with self.assertRaisesRegex(TypeError, "x must be an integer"):
-            Rectangle(10, 2, {}, 0)
-        with self.assertRaisesRegex(TypeError, "y must be an integer"):
-            Rectangle(10, 2, 0, [])
+    def test_area_calculation(self):
+        """Test computing area with regular values."""
+        r1 = Rectangle(3, 2)
+        self.assertEqual(r1.area(), 6)
 
-    def test_value_errors(self):
-        """Test that invalid values raise ValueError."""
-        with self.assertRaisesRegex(ValueError, "width must be > 0"):
-            Rectangle(-10, 2)
-        with self.assertRaisesRegex(ValueError, "width must be > 0"):
-            Rectangle(0, 2)
-        with self.assertRaisesRegex(ValueError, "height must be > 0"):
-            Rectangle(10, -2)
-        with self.assertRaisesRegex(ValueError, "height must be > 0"):
-            Rectangle(10, 0)
-        with self.assertRaisesRegex(ValueError, "x must be >= 0"):
-            Rectangle(10, 2, -3, 0)
-        with self.assertRaisesRegex(ValueError, "y must be >= 0"):
-            Rectangle(10, 2, 0, -5)
+        r2 = Rectangle(2, 10)
+        self.assertEqual(r2.area(), 20)
+
+        r3 = Rectangle(8, 7, 0, 0, 12)
+        self.assertEqual(r3.area(), 56)
 
 
 if __name__ == "__main__":

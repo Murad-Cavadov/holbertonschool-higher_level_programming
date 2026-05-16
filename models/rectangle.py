@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Rectangle class with attribute validation.
+Defines a Rectangle class with an area method.
 """
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Represents a rectangle with validated private attributes.
+    Represents a rectangle with validated private attributes and area.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -75,3 +75,9 @@ class Rectangle(Base):
         if value < 0:
             raise ValueError("y must be >= 0")
         self.__y = value
+
+    def area(self):
+        """
+        Returns the area value of the Rectangle instance.
+        """
+        return self.__width * self.__height
