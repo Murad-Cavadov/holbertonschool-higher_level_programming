@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Square class with size getter and setter.
+Defines a Square class with an update method for *args and **kwargs.
 """
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
     """
-    Represents a square that inherits from Rectangle.
+    Represents a square that inherits from Rectangle with update capabilities.
     """
 
     def __init__(self, size, x=0, y=0, id=None):
@@ -37,3 +37,17 @@ class Square(Rectangle):
         """
         return "[Square] ({}) {}/{} - {}".format(
             self.id, self.x, self.y, self.width)
+
+    def update(self, *args, **kwargs):
+        """
+        Assigns attributes to the Square instance using *args or **kwargs.
+        """
+        if args and len(args) > 0:
+            attrs = ["id", "size", "x", "y"]
+            for i, arg in enumerate(args):
+                if i < len(attrs):
+                    setattr(self, attrs[i], arg)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if hasattr(self, key):
+                    setattr(self, key, value)
