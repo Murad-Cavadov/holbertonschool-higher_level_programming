@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Unit tests for the complete Base class including save_to_file method.
+Unit tests for the complete Base class including from_json_string method.
 """
 import unittest
 import os
@@ -8,36 +8,29 @@ from models.base import Base
 from models.rectangle import Rectangle
 
 
-class TestBaseFile(unittest.TestCase):
-    """Test suite for checking file operations in Base class."""
+class TestBase(unittest.TestCase):
+    """Test suite for the Base class."""
 
-    def tearDown(self):
-        """Clean up generated files after each test."""
-        if os.path.exists("Rectangle.json"):
-            os.remove("Rectangle.json")
-        if os.path.exists("Base.json"):
-            os.remove("Base.json")
+    def test_auto_id(self):
+        """Test automatic id incrementation."""
+        b1 = Base()
+        b2 = Base()
+        self.assertEqual(b2.id, b1.id + 1)
 
-    def test_save_to_file_none(self):
-        """Test save_to_file with None as argument."""
-        Rectangle.save_to_file(None)
-        with open("Rectangle.json", "r") as f:
-            self.assertEqual(f.read(), "[]")
+    def test_from_json_string_none(self):
+        """Test from_json_string with None argument."""
+        self.assertEqual(Base.from_json_string(None), [])
 
-    def test_save_to_file_empty(self):
-        """Test save_to_file with an empty list."""
-        Rectangle.save_to_file([])
-        with open("Rectangle.json", "r") as f:
-            self.assertEqual(f.read(), "[]")
+    def test_from_json_string_empty(self):
+        """Test from_json_string with an empty string."""
+        self.assertEqual(Base.from_json_string(""), [])
 
-    def test_save_to_file_valid(self):
-        """Test save_to_file with valid Rectangle instances."""
-        r1 = Rectangle(10, 7, 2, 8, 1)
-        Rectangle.save_to_file([r1])
-        with open("Rectangle.json", "r") as f:
-            content = f.read()
-            self.assertTrue(len(content) > 0)
-            self.assertIn('"id": 1', content)
+    def test_from_json_string_valid(self):
+        """Test from_json_string with a valid JSON string."""
+        json_str = '[{"id": 89, "width": 10, "height": 4}]'
+        output = Base.from_json_string(json_str)
+        self.assertIsInstance(output, list)
+        self.assertEqual(output, [{'id': 89, 'width': 10, 'height': 4}])
 
 
 if __name__ == "__main__":
