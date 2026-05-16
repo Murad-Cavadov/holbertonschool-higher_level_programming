@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Rectangle class that inherits from Base.
+Defines a Rectangle class with attribute validation.
 """
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Represents a rectangle. Inherits from Base.
+    Represents a rectangle with validated private attributes.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -22,40 +22,56 @@ class Rectangle(Base):
 
     @property
     def width(self):
-        """Retrieves the width attribute."""
+        """Retrieves the width of the Rectangle."""
         return self.__width
 
     @width.setter
     def width(self, value):
-        """Sets the width attribute."""
+        """Sets the width of the Rectangle with validation."""
+        if type(value) is not int:
+            raise TypeError("width must be an integer")
+        if value <= 0:
+            raise ValueError("width must be > 0")
         self.__width = value
 
     @property
     def height(self):
-        """Retrieves the height attribute."""
+        """Retrieves the height of the Rectangle."""
         return self.__height
 
     @height.setter
     def height(self, value):
-        """Sets the height attribute."""
+        """Sets the height of the Rectangle with validation."""
+        if type(value) is not int:
+            raise TypeError("height must be an integer")
+        if value <= 0:
+            raise ValueError("height must be > 0")
         self.__height = value
 
     @property
     def x(self):
-        """Retrieves the x attribute."""
+        """Retrieves the x coordinate."""
         return self.__x
 
     @x.setter
     def x(self, value):
-        """Sets the x attribute."""
+        """Sets the x coordinate with validation."""
+        if type(value) is not int:
+            raise TypeError("x must be an integer")
+        if value < 0:
+            raise ValueError("x must be >= 0")
         self.__x = value
 
     @property
     def y(self):
-        """Retrieves the y attribute."""
+        """Retrieves the y coordinate."""
         return self.__y
 
     @y.setter
     def y(self, value):
-        """Sets the y attribute."""
+        """Sets the y coordinate with validation."""
+        if type(value) is not int:
+            raise TypeError("y must be an integer")
+        if value < 0:
+            raise ValueError("y must be >= 0")
         self.__y = value
