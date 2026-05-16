@@ -1,31 +1,46 @@
 #!/usr/bin/python3
 """
-Unit tests for the complete Base class including the create method.
+Unit tests for the complete Base class including load_from_file method.
 """
 import unittest
+import os
 from models.base import Base
 from models.rectangle import Rectangle
 from models.square import Square
 
 
-class TestBaseCreate(unittest.TestCase):
-    """Test suite for checking the create method of the Base class."""
+class TestBaseLoadFile(unittest.TestCase):
+    """Test suite for checking file loading operations in Base class."""
 
-    def test_create_rectangle(self):
-        """Test create method for Rectangle instance."""
-        r1 = Rectangle(3, 5, 1, 0, 99)
-        r1_dict = r1.to_dictionary()
-        r2 = Rectangle.create(**r1_dict)
-        self.assertEqual(str(r1), str(r2))
-        self.assertIsNot(r1, r2)
+    def tearDown(self):
+        """Clean up generated files after each test."""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.exists("Square.json"):
+            os.remove("Square.json")
 
-    def test_create_square(self):
-        """Test create method for Square instance."""
-        s1 = Square(5, 2, 2, 88)
-        s1_dict = s1.to_dictionary()
-        s2 = Square.create(**s1_dict)
-        self.assertEqual(str(s1), str(s2))
-        self.assertIsNot(s1, s2)
+    def test_load_from_file_no_file(self):
+        """Test load_from_file when the file does not exist."""
+        output = Rectangle.load_from_file()
+        self.assertEqual(output, [])
+
+    def test_load_from_file_rectangle(self):
+        """Test loading Rectangle instances from file."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        Rectangle.save_to_file([r1])
+        output = Rectangle.load_from_file()
+        self.assertEqual(len(output), 1)
+        self.assertEqual(str(output[0]), str(r1))
+        self.assertIsInstance(output[0], Rectangle)
+
+    def test_load_from_file_square(self):
+        """Test loading Square instances from file."""
+        s1 = Square(5, 1, 2, 9)
+        Square.save_to_file([s1])
+        output = Square.load_from_file()
+        self.assertEqual(len(output), 1)
+        self.assertEqual(str(output[0]), str(s1))
+        self.assertIsInstance(output[0], Square)
 
 
 if __name__ == "__main__":
