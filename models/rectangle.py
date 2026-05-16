@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Rectangle class with a coordinate-aware display method.
+Defines a Rectangle class with an update method using *args.
 """
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Represents a rectangle with validation, area, and display capabilities.
+    Represents a rectangle with validation, area, display, and update.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -97,3 +97,13 @@ class Rectangle(Base):
         """
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.__x, self.__y, self.__width, self.__height)
+
+    def update(self, *args):
+        """
+        Assigns an argument to each attribute based on order (*args).
+        """
+        if args and len(args) > 0:
+            attrs = ["id", "width", "height", "x", "y"]
+            for i, arg in enumerate(args):
+                if i < len(attrs):
+                    setattr(self, attrs[i], arg)
