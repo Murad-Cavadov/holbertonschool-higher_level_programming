@@ -33,3 +33,10 @@ if __name__ == "__main__":
         with patch('sys.stdout', new=io.StringIO()) as fake_out:
             r.display()
             self.assertEqual(fake_out.getvalue(), expected_output)
+            def test_str_method(self):
+        """Test the __str__ method output format."""
+        r1 = Rectangle(4, 6, 2, 1, 12)
+        self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
+
+        r2 = Rectangle(5, 5, 1, 0, 1)
+        self.assertEqual(str(r2), "[Rectangle] (1) 1/0 - 5/5")

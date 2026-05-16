@@ -86,4 +86,9 @@ class Rectangle(Base):
         Prints in stdout the Rectangle instance with the character #.
         """
         for i in range(self.__height):
-            print("#" * self.__width)
+            print("#" * self.__widthdef __str__(self):
+        """
+        Returns the print() and str() string representation of the Rectangle.
+        """
+        return "[Rectangle] ({}) {}/{} - {}/{}".format(
+            self.id, self.x, self.y, self.width, self.height))
