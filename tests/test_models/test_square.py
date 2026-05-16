@@ -1,44 +1,32 @@
 #!/usr/bin/python3
 """
-Unit tests for the complete Square class including the update method.
+Unit tests for the complete Square class including to_dictionary method.
 """
 import unittest
 from models.square import Square
 
 
-class TestSquareUpdate(unittest.TestCase):
-    """Test suite for checking the update method of the Square class."""
+class TestSquareDictionary(unittest.TestCase):
+    """Test suite for checking the to_dictionary method of Square."""
 
-    def test_update_args(self):
-        """Test update method with positional arguments (*args)."""
-        s = Square(5, 0, 0, 1)
+    def test_to_dictionary_output(self):
+        """Test the dictionary structure and values for Square."""
+        s = Square(10, 2, 1, 5)
+        s_dict = s.to_dictionary()
         
-        s.update(10)
-        self.assertEqual(s.id, 10)
+        expected = {'id': 5, 'x': 2, 'size': 10, 'y': 1}
+        self.assertEqual(s_dict, expected)
+        self.assertIsInstance(s_dict, dict)
 
-        s.update(1, 2)
-        self.assertEqual(s.id, 1)
-        self.assertEqual(s.size, 2)
-
-        s.update(1, 2, 3)
-        self.assertEqual(s.x, 3)
-
-        s.update(1, 2, 3, 4)
-        self.assertEqual(s.y, 4)
-
-    def test_update_kwargs(self):
-        """Test update method with keyword arguments (**kwargs)."""
-        s = Square(5, 0, 0, 1)
-        
-        s.update(x=12)
-        self.assertEqual(s.x, 12)
-
-        s.update(size=7, y=1)
-        self.assertEqual(s.size, 7)
-        self.assertEqual(s.y, 1)
-
-        s.update(size=7, id=89, y=1)
-        self.assertEqual(s.id, 89)
+    def test_to_dictionary_update(self):
+        """Test that update method works correctly with square dictionary."""
+        s1 = Square(10, 2, 1, 5)
+        s2 = Square(1, 1)
+        s2.update(**s1.to_dictionary())
+        self.assertEqual(s1.size, s2.size)
+        self.assertEqual(s1.x, s2.x)
+        self.assertEqual(s1.y, s2.y)
+        self.assertEqual(s1.id, s2.id)
 
 
 if __name__ == "__main__":
