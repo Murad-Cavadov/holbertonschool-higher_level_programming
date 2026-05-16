@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Rectangle class with an update method using *args.
+Defines a Rectangle class with an update method using *args and **kwargs.
 """
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Represents a rectangle with validation, area, display, and update.
+    Represents a rectangle with validation, area, display, and update features.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -98,12 +98,16 @@ class Rectangle(Base):
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
             self.id, self.__x, self.__y, self.__width, self.__height)
 
-    def update(self, *args):
+    def update(self, *args, **kwargs):
         """
-        Assigns an argument to each attribute based on order (*args).
+        Assigns an argument to each attribute via *args or **kwargs.
         """
         if args and len(args) > 0:
             attrs = ["id", "width", "height", "x", "y"]
             for i, arg in enumerate(args):
                 if i < len(attrs):
                     setattr(self, attrs[i], arg)
+        elif kwargs:
+            for key, value in kwargs.items():
+                if hasattr(self, key):
+                    setattr(self, key, value)
