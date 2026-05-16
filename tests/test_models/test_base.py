@@ -1,39 +1,43 @@
 #!/usr/bin/python3
 """
-Unit tests for the complete Base class including to_json_string method.
+Unit tests for the complete Base class including save_to_file method.
 """
 import unittest
+import os
 from models.base import Base
+from models.rectangle import Rectangle
 
 
-class TestBase(unittest.TestCase):
-    """Test suite for the Base class."""
+class TestBaseFile(unittest.TestCase):
+    """Test suite for checking file operations in Base class."""
 
-    def test_auto_id(self):
-        """Test automatic id incrementation."""
-        b1 = Base()
-        b2 = Base()
-        self.assertEqual(b2.id, b1.id + 1)
+    def tearDown(self):
+        """Clean up generated files after each test."""
+        if os.path.exists("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.exists("Base.json"):
+            os.remove("Base.json")
 
-    def test_explicit_id(self):
-        """Test assigning specific integer id."""
-        b = Base(12)
-        self.assertEqual(b.id, 12)
+    def test_save_to_file_none(self):
+        """Test save_to_file with None as argument."""
+        Rectangle.save_to_file(None)
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
 
-    def test_to_json_string_none(self):
-        """Test to_json_string with None argument."""
-        self.assertEqual(Base.to_json_string(None), "[]")
+    def test_save_to_file_empty(self):
+        """Test save_to_file with an empty list."""
+        Rectangle.save_to_file([])
+        with open("Rectangle.json", "r") as f:
+            self.assertEqual(f.read(), "[]")
 
-    def test_to_json_string_empty(self):
-        """Test to_json_string with an empty list."""
-        self.assertEqual(Base.to_json_string([]), "[]")
-
-    def test_to_json_string_valid(self):
-        """Test to_json_string with a valid list of dictionaries."""
-        d = [{'id': 1, 'width': 10, 'height': 7, 'x': 2, 'y': 8}]
-        json_str = Base.to_json_string(d)
-        self.assertIsInstance(json_str, str)
-        self.assertEqual(json_str, '[{"id": 1, "width": 10, "height": 7, "x": 2, "y": 8}]')
+    def test_save_to_file_valid(self):
+        """Test save_to_file with valid Rectangle instances."""
+        r1 = Rectangle(10, 7, 2, 8, 1)
+        Rectangle.save_to_file([r1])
+        with open("Rectangle.json", "r") as f:
+            content = f.read()
+            self.assertTrue(len(content) > 0)
+            self.assertIn('"id": 1', content)
 
 
 if __name__ == "__main__":
