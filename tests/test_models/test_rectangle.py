@@ -23,3 +23,13 @@ class TestRectangleArea(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+    def test_display(self):
+        """Test display method output without x and y."""
+        import io
+        from unittest.mock import patch
+
+        r = Rectangle(2, 2)
+        expected_output = "##\n##\n"
+        with patch('sys.stdout', new=io.StringIO()) as fake_out:
+            r.display()
+            self.assertEqual(fake_out.getvalue(), expected_output)
