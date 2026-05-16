@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Rectangle class with an update method using *args and **kwargs.
+Defines a Rectangle class with a to_dictionary method.
 """
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Represents a rectangle with validation, area, display, and update features.
+    Represents a rectangle with validation, area, display, and serialization.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -111,3 +111,15 @@ class Rectangle(Base):
             for key, value in kwargs.items():
                 if hasattr(self, key):
                     setattr(self, key, value)
+
+    def to_dictionary(self):
+        """
+        Returns the dictionary representation of a Rectangle.
+        """
+        return {
+            "id": self.id,
+            "width": self.width,
+            "height": self.height,
+            "x": self.x,
+            "y": self.y
+        }
