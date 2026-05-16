@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """
-Defines a Rectangle class with an area method.
+Defines a Rectangle class with a coordinate-aware display method.
 """
 from models.base import Base
 
 
 class Rectangle(Base):
     """
-    Represents a rectangle with validated private attributes and area.
+    Represents a rectangle with validation, area, and display capabilities.
     """
 
     def __init__(self, width, height, x=0, y=0, id=None):
@@ -81,14 +81,19 @@ class Rectangle(Base):
         Returns the area value of the Rectangle instance.
         """
         return self.__width * self.__height
+
     def display(self):
         """
-        Prints in stdout the Rectangle instance with the character #.
+        Prints the Rectangle instance with '#' considering x and y offsets.
         """
-        for i in range(self.__height):
-            print("#" * self.__widthdef __str__(self):
+        for _ in range(self.__y):
+            print()
+        for _ in range(self.__height):
+            print(" " * self.__x + "#" * self.__width)
+
+    def __str__(self):
         """
         Returns the print() and str() string representation of the Rectangle.
         """
         return "[Rectangle] ({}) {}/{} - {}/{}".format(
-            self.id, self.x, self.y, self.width, self.height))
+            self.id, self.__x, self.__y, self.__width, self.__height)
