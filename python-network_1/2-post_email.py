@@ -17,8 +17,10 @@ if __name__ == "__main__":
     # Datay-ı URL formatına salıb baytlara çeviririk
     data = urllib.parse.urlencode(values).encode('utf-8')
 
-    # Sorğunu (Request) hazırlayırıq (həm data, həm də firewall başlığı ilə)
-    req = urllib.request.Request(url, data=data, headers={'cfclearance': 'true'})
+    # Sorğunu hazırlayırıq (Sətir çox uzun olmasın deyə böldük)
+    req = urllib.request.Request(
+        url, data=data, headers={'cfclearance': 'true'}
+    )
 
     with urllib.request.urlopen(req) as response:
         print(response.read().decode('utf-8'))
